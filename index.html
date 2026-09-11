@@ -9,19 +9,25 @@
 <body>
   <main class="wrap">
     <h1>Random Internet File 🌎</h1>
-    <p class="sub">One click → find a public Internet Archive file → download it.</p>
+    <p class="sub">One click → find a public Internet Archive file of almost any everyday format → force a real download.</p>
 
     <section class="card">
       <div class="row">
         <label>
           Category
           <select id="category">
-            <option value="random">Random</option>
-            <option value="document">Document</option>
-            <option value="image">Image</option>
+            <option value="random">Anything (safe random)</option>
+            <option value="document">Documents</option>
+            <option value="spreadsheet">Spreadsheets</option>
+            <option value="presentation">Presentations</option>
+            <option value="image">Images</option>
             <option value="audio">Audio</option>
             <option value="video">Video</option>
+            <option value="archive">ZIP / RAR / Archives</option>
+            <option value="web">Web Pages</option>
             <option value="data">Data</option>
+            <option value="source">Source Code</option>
+            <option value="font">Fonts</option>
           </select>
         </label>
 
@@ -29,9 +35,10 @@
           Max size
           <select id="maxSize">
             <option value="10">10 MB</option>
-            <option value="25" selected>25 MB</option>
-            <option value="50">50 MB</option>
+            <option value="25">25 MB</option>
+            <option value="50" selected>50 MB</option>
             <option value="100">100 MB</option>
+            <option value="250">250 MB</option>
           </select>
         </label>
       </div>
@@ -43,7 +50,7 @@
     </section>
 
     <p class="note">
-      Safety default: executables, scripts, installers, disk images, archives, and other high-risk file types are excluded.
+      Includes ZIP/RAR/7Z, Apple Pages/Keynote/Numbers, Office files, web pages, source code, data, fonts, images, audio and video. Direct executables/installers/scripts stay excluded.
     </p>
   </main>
 

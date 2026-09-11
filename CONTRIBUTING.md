@@ -13,7 +13,7 @@ Thanks for wanting to improve Random Internet File.
 ## Guidelines
 
 - Keep the project usable on GitHub Pages.
-- Do not add code that automatically downloads executable or high-risk files.
+- Do not add code that automatically downloads directly executable/installable payloads.
 - Do not add malware, credential stealers, trackers, or deceptive downloads.
 - Keep the random-file feature focused on public files.
 - Avoid breaking the one-click download flow.

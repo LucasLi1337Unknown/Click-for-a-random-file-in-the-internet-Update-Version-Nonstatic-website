@@ -1,37 +1,45 @@
-# Random Internet File
+# Random Internet File — Full Repo
 
-A fuller GitHub repository for a one-click random-file downloader.
+A GitHub Pages frontend plus a Cloudflare Worker backend for downloading a random public file from Internet Archive.
 
-## Architecture
+## File variety
 
-- `index.html` — GitHub Pages UI
-- `styles.css` — styling
-- `app.js` — Internet Archive search + file selection
-- `config.js` — optional backend URL
-- `worker/worker.js` — optional Cloudflare Worker that proxies downloads and forces `Content-Disposition: attachment`
-- `worker/wrangler.jsonc` — Worker config
+The random pool now includes many everyday file families:
 
-## Why there is a Worker
+- Documents: PDF, TXT, Markdown, EPUB, DOC/DOCX, ODT, Apple Pages, and more
+- Spreadsheets: CSV, XLS/XLSX, ODS, Apple Numbers
+- Presentations: PPT/PPTX, ODP, Apple Keynote
+- Images: JPG, PNG, GIF, WEBP, SVG, TIFF, HEIC, etc.
+- Audio and video
+- Archives: ZIP, RAR, 7Z, TAR, GZ, BZ2, XZ
+- Web pages: HTML, XHTML, MHTML, CSS, XML
+- Data: JSON, YAML, SQLite/DB, GeoJSON, TSV
+- Source-code text: C/C++, Java, Go, Rust, Swift, Kotlin, C#, PHP, SQL, etc.
+- Fonts: TTF, OTF, WOFF/WOFF2
 
-GitHub Pages is static hosting. It cannot run server-side code or rewrite response headers from another website.
+For safety, random executables, installers, disk images, shell scripts, and similar directly executable payloads are intentionally excluded.
 
-The site still works without the Worker by opening Internet Archive's direct `?download=1` URL. However, browsers and remote servers ultimately decide whether a cross-origin file is downloaded or displayed.
+## Why the Worker is required
 
-The optional Worker fetches the public Archive file server-side and returns it with:
+GitHub Pages is static. A page cannot reliably force a cross-origin response from Internet Archive to download, especially when the browser decides a PDF/image/text file should be displayed.
 
-`Content-Disposition: attachment`
+The Worker fetches the public Internet Archive file and sends it back with:
 
-That makes the browser treat the successful response as a download much more consistently.
+```http
+Content-Disposition: attachment
+```
 
-## Deploy the GitHub Pages frontend
+On macOS Chrome and Safari this is much more reliable because the browser receives an actual attachment response instead of an `<a download>` hint that may be ignored cross-origin.
 
-1. Upload `index.html`, `styles.css`, `app.js`, and `config.js` to the repository root.
-2. GitHub → Settings → Pages.
-3. Choose **Deploy from a branch**.
-4. Select `main` and `/ (root)`.
-5. Save.
+## 1. Deploy GitHub Pages
 
-## Optional: deploy the Cloudflare Worker
+Upload the repository contents to GitHub.
+
+In the repository:
+
+**Settings → Pages → Deploy from a branch → main → / (root)**
+
+## 2. Deploy the Cloudflare Worker
 
 Install Wrangler:
 
@@ -45,19 +53,27 @@ Log in:
 wrangler login
 ```
 
-From the `worker` folder:
+Enter the worker folder:
+
+```bash
+cd worker
+```
+
+Deploy:
 
 ```bash
 wrangler deploy
 ```
 
-Wrangler will print a URL similar to:
+Wrangler gives you a URL similar to:
 
 ```text
 https://random-internet-file-proxy.YOURNAME.workers.dev
 ```
 
-Copy that URL into `config.js`:
+## 3. Connect it to the website
+
+Edit `config.js`:
 
 ```js
 window.RANDOM_FILE_CONFIG = {
@@ -65,21 +81,28 @@ window.RANDOM_FILE_CONFIG = {
 };
 ```
 
-Commit and push again.
+Commit and push.
 
-## Safety
+After GitHub Pages updates, clicking the button will search Internet Archive, choose a public file, send the request through your Worker, and the Worker will return the file as an attachment.
 
-The repository intentionally blocks executables, scripts, installers, disk images, and archives. It is designed for random public documents, images, audio, video, and data files rather than random executable code.
+## Repository files
 
-
-## Contributing
-
-Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+```text
+index.html
+styles.css
+app.js
+config.js
+README.md
+LICENSE
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+.gitignore
+worker/
+  worker.js
+  wrangler.jsonc
+```
 
 ## License
 
-Released under the MIT License. See [LICENSE](LICENSE).
-
-## Security
-
-See [SECURITY.md](SECURITY.md) for security reporting guidance.
+MIT

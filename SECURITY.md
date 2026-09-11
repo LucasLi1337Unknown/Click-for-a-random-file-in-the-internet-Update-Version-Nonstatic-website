@@ -8,7 +8,7 @@ Open a GitHub issue with a minimal description if the issue is not sensitive. Fo
 
 ## Scope
 
-This project intentionally blocks executable, script, installer, disk-image, and archive file types from automatic random downloading.
+This project allows common documents, media, archives, web/data files, source-code text, and fonts, but intentionally blocks directly executable/installable payloads and shell-script types from automatic random downloading.
 
 Please report issues involving:
 
