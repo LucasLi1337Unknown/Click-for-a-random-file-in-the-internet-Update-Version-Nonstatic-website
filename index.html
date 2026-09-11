@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Internet File</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <h1>Random Internet File 🌎</h1>
+    <p class="sub">One click → find a public Internet Archive file → download it.</p>
+
+    <section class="card">
+      <div class="row">
+        <label>
+          Category
+          <select id="category">
+            <option value="random">Random</option>
+            <option value="document">Document</option>
+            <option value="image">Image</option>
+            <option value="audio">Audio</option>
+            <option value="video">Video</option>
+            <option value="data">Data</option>
+          </select>
+        </label>
+
+        <label>
+          Max size
+          <select id="maxSize">
+            <option value="10">10 MB</option>
+            <option value="25" selected>25 MB</option>
+            <option value="50">50 MB</option>
+            <option value="100">100 MB</option>
+          </select>
+        </label>
+      </div>
+
+      <button id="downloadBtn">DOWNLOAD RANDOM FILE</button>
+
+      <div id="status">Ready.</div>
+      <div id="result" class="result hidden"></div>
+    </section>
+
+    <p class="note">
+      Safety default: executables, scripts, installers, disk images, archives, and other high-risk file types are excluded.
+    </p>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
